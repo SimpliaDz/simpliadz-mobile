@@ -35,13 +35,27 @@ The local development API is `http://localhost:5278`. On a physical Android devi
 
 ## Current UI slice
 
-The app provides a validated login form and a dashboard placeholder. Sign-in navigation is intentionally local while the data, domain, state-management, and secure-storage layers are added. The dashboard uses placeholders rather than fabricated financial data.
+The app provides a validated login form, an authenticated dashboard placeholder,
+logout, development password-reset request/reset, and a refresh-token-aware
+repository. The dashboard uses placeholders rather than fabricated financial data.
+
+## Running authentication locally
+
+Start the API from the platform repository, then run the mobile app. The Android
+emulator default is http://10.0.2.2:5278. For a USB-connected phone, first run
+adb reverse tcp:5278 tcp:5278, then launch Flutter with:
+
+    flutter run --dart-define=API_BASE_URL=http://localhost:5278
+
+The debug-only Android manifest permits cleartext HTTP so the local API can be
+used in development. Release builds must use HTTPS.
+
+The development account and password are documented in the API project's
+src/SimpliaDz.Api/SimpliaDz.Api.http file; enter them manually. They are not
+embedded in the mobile app.
 
 ## Next implementation sequence
 
-1. Add environment configuration and an HTTP client.
-2. Define the auth domain entity and repository contract.
-3. Map API responses manually and implement the login repository.
-4. Store refresh tokens securely and manage access tokens in memory.
-5. Add application state and route guards.
-6. Replace dashboard placeholders with authenticated API-backed features.
+1. Add route guards and restore the stored session during application startup.
+2. Centralize authenticated request retry after access-token expiry.
+3. Replace dashboard placeholders with authenticated API-backed features.

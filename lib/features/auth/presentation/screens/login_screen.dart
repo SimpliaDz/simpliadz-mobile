@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simpliadz_mobile/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:simpliadz_mobile/features/home/presentation/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({required this.authController, super.key});
+  final AuthController authController;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -21,20 +24,27 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute<void>(builder: (_) => const HomeScreen()),
+    final succeeded = await widget.authController.signIn(
+      _emailController.text.trim(),
+      _passwordController.text,
+    );
+    if (!mounted || !succeeded) return;
+    await Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+        builder: (_) => HomeScreen(authController: widget.authController),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) => Center(
+    return AnimatedBuilder(
+      animation: widget.authController,
+      builder: (context, _) => Scaffold(
+        body: SafeArea(
+          child: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: ConstrainedBox(
@@ -66,26 +76,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
-                        autofillHints: const [AutofillHints.username],
                         decoration: const InputDecoration(
                           labelText: 'Email address',
                           prefixIcon: Icon(Icons.email_outlined),
                         ),
-                        validator: (value) {
-                          final email = value?.trim() ?? '';
-                          if (email.isEmpty) return 'Enter your email address.';
-                          if (!email.contains('@')) {
-                            return 'Enter a valid email address.';
-                          }
-                          return null;
-                        },
+                        validator: _validateEmail,
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _passwordController,
                         obscureText: _obscurePassword,
                         textInputAction: TextInputAction.done,
-                        autofillHints: const [AutofillHints.password],
                         onFieldSubmitted: (_) => _submit(),
                         decoration: InputDecoration(
                           labelText: 'Password',
@@ -99,32 +100,55 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
                             ),
-                            onPressed: () => setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            }),
+                            onPressed: () => setState(
+                              () => _obscurePassword = !_obscurePassword,
+                            ),
                           ),
                         ),
-                        validator: (value) {
-                          if ((value ?? '').isEmpty) {
-                            return 'Enter your password.';
-                          }
-                          return null;
-                        },
+                        validator: _validateRequired,
                       ),
+                      if (widget.authController.errorMessage
+                          case final message?)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text(
+                            message,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                          ),
+                        ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: widget.authController.isLoading
+                              ? null
+                              : () => Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => ForgotPasswordScreen(
+                                      authController: widget.authController,
+                                    ),
+                                  ),
+                                ),
                           child: const Text('Forgot password?'),
                         ),
                       ),
-                      const SizedBox(height: 16),
                       FilledButton(
-                        onPressed: _submit,
+                        onPressed: widget.authController.isLoading
+                            ? null
+                            : _submit,
                         style: FilledButton.styleFrom(
                           minimumSize: const Size.fromHeight(52),
                         ),
-                        child: const Text('Sign in'),
+                        child: widget.authController.isLoading
+                            ? const SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Text('Sign in'),
                       ),
                     ],
                   ),
@@ -137,3 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+String? _validateEmail(String? value) {
+  final email = value?.trim() ?? '';
+  if (email.isEmpty) return 'Enter your email address.';
+  if (!email.contains('@')) return 'Enter a valid email address.';
+  return null;
+}
+
+String? _validateRequired(String? value) =>
+    (value ?? '').isEmpty ? 'This field is required.' : null;

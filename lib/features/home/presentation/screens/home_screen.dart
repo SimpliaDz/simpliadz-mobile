@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simpliadz_mobile/features/auth/presentation/screens/change_password_screen.dart';
+import 'package:simpliadz_mobile/features/auth/presentation/screens/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({required this.authController, super.key});
+
+  final AuthController authController;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,56 @@ class HomeScreen extends StatelessWidget {
             tooltip: 'Notifications',
             icon: const Icon(Icons.notifications_none),
           ),
+          IconButton(
+            onPressed: () async {
+              await authController.signOut();
+              if (!context.mounted) return;
+              await Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute<void>(
+                  builder: (_) => LoginScreen(authController: authController),
+                ),
+                (route) => false,
+              );
+            },
+            tooltip: 'Sign out',
+            icon: const Icon(Icons.logout),
+          ),
+          PopupMenuButton<String>(
+            onSelected: (value) async {
+              if (value == 'refresh') {
+                await authController.refreshSession();
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      authController.errorMessage ?? 'Session refreshed.',
+                    ),
+                  ),
+                );
+              }
+              if (value == 'password') {
+                final signedOut = await Navigator.of(context).push<bool>(
+                  MaterialPageRoute<bool>(
+                    builder: (_) =>
+                        ChangePasswordScreen(authController: authController),
+                  ),
+                );
+                if (signedOut == true && context.mounted) {
+                  await Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute<void>(
+                      builder: (_) =>
+                          LoginScreen(authController: authController),
+                    ),
+                    (route) => false,
+                  );
+                }
+              }
+            },
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: 'refresh', child: Text('Refresh session')),
+              PopupMenuItem(value: 'password', child: Text('Change password')),
+            ],
+          ),
         ],
       ),
       body: SafeArea(
@@ -21,7 +76,7 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           children: [
             Text(
-              'Good morning',
+              'Signed in as ${authController.currentUser?.email ?? authController.session?.email ?? ''}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
