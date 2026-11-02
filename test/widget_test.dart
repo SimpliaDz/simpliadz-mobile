@@ -7,5 +7,6 @@ void main() {
 
     expect(find.text('SimpliaDz'), findsOneWidget);
     expect(find.text('Sign in to your business'), findsOneWidget);
+    expect(find.text('Sign in'), findsOneWidget);
   });
 }
