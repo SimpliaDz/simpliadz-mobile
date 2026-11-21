@@ -95,8 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
           if (index == 2) {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) =>
-                    InventoryScreen(controller: _inventoryController),
+                builder: (_) => InventoryScreen(
+                  controller: _inventoryController,
+                  authController: widget.authController,
+                ),
               ),
             );
           }

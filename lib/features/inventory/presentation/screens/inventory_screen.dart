@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/stock_detail_screen.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/screens/warnings_screen.dart';
+import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class InventoryScreen extends StatefulWidget {
-  const InventoryScreen({required this.controller, super.key});
+  const InventoryScreen({
+    required this.controller,
+    required this.authController,
+    super.key,
+  });
   final InventoryController controller;
+  final AuthController authController;
   @override
   State<InventoryScreen> createState() => _InventoryScreenState();
 }
@@ -24,7 +31,21 @@ class _InventoryScreenState extends State<InventoryScreen> {
       final c = widget.controller;
       final r = c.report;
       return Scaffold(
-        appBar: AppBar(title: const Text('Inventory')),
+        appBar: AppBar(
+          title: const Text('Inventory'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.warning_amber_outlined),
+              tooltip: 'Warnings',
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) =>
+                      WarningsScreen(authController: widget.authController),
+                ),
+              ),
+            ),
+          ],
+        ),
         body: RefreshIndicator(
           onRefresh: c.load,
           child: ListView(
