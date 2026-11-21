@@ -9,6 +9,9 @@ import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_report
 import 'package:simpliadz_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
 import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
 import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
+import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -25,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final SalesReportsController _salesController;
+  late final InventoryController _inventoryController;
   @override
   void initState() {
     super.initState();
@@ -35,6 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
           AuthenticatedApiClient(
             tokenProvider: widget.authController.accessToken,
           ),
+        ),
+      ),
+    );
+    _inventoryController = InventoryController(
+      InventoryApiDataSource(
+        AuthenticatedApiClient(
+          tokenProvider: widget.authController.accessToken,
         ),
       ),
     );
@@ -78,6 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialPageRoute<void>(
                 builder: (_) =>
                     SalesReportsScreen(controller: _salesController),
+              ),
+            );
+          }
+          if (index == 2) {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    InventoryScreen(controller: _inventoryController),
               ),
             );
           }
