@@ -12,6 +12,7 @@ import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_rep
 import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_screen.dart';
+import 'package:simpliadz_mobile/features/more/presentation/screens/more_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -102,6 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
+          if (index == 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    MoreScreen(authController: widget.authController),
+              ),
+            );
+          }
         },
         destinations: [
           NavigationDestination(
@@ -117,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.inventory_2_outlined),
             label: 'Inventory',
           ),
+          NavigationDestination(icon: Icon(Icons.more_horiz), label: 'More'),
         ],
       ),
     ),
