@@ -37,4 +37,11 @@ class InventoryApiDataSource {
   Future<int> total(String variantId) async =>
       (await _client.get('/stock/variants/$variantId/total'))['quantityOnHand']
           as int;
+
+  Future<List<Map<String, dynamic>>> movements(
+    String variantId,
+    int page,
+  ) async => (await _client.getDynamic(
+    '/stock/movements?productVariantId=$variantId&page=$page&pageSize=25',
+  ) as List<dynamic>).cast<Map<String, dynamic>>();
 }

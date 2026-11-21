@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
 import 'package:simpliadz_mobile/features/inventory/domain/entities/inventory_report.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/screens/stock_movements_screen.dart';
 
 class StockDetailScreen extends StatefulWidget {
   const StockDetailScreen({required this.api, required this.row, super.key});
@@ -18,7 +19,23 @@ class _StockDetailScreenState extends State<StockDetailScreen> {
   );
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(widget.row.productName)),
+    appBar: AppBar(
+      title: Text(widget.row.productName),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.history),
+          tooltip: 'Movement history',
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => StockMovementsScreen(
+                api: widget.api,
+                variantId: widget.row.id,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
     body: FutureBuilder<(int, List<Map<String, dynamic>>)>(
       future: _data,
       builder: (context, snapshot) {
