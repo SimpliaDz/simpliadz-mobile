@@ -18,6 +18,11 @@ class AuthController extends ChangeNotifier {
   bool get isLoading => _isLoading;
   bool get isAuthenticated => _session != null;
 
+  Future<String?> accessToken({bool refresh = false}) async {
+    if (refresh && !await refreshSession()) return null;
+    return _session?.accessToken;
+  }
+
   Future<bool> signIn(String email, String password) async {
     return _run(() async {
       _session = await _repository.signIn(email: email, password: password);

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:simpliadz_mobile/features/home/presentation/screens/home_screen.dart';
+import 'package:simpliadz_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({required this.authController, super.key});
+  const LoginScreen({
+    required this.authController,
+    required this.dashboardController,
+    super.key,
+  });
   final AuthController authController;
+  final DashboardController dashboardController;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -33,7 +39,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!mounted || !succeeded) return;
     await Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(
-        builder: (_) => HomeScreen(authController: widget.authController),
+        builder: (_) => HomeScreen(
+          authController: widget.authController,
+          dashboardController: widget.dashboardController,
+        ),
       ),
     );
   }

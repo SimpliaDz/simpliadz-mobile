@@ -35,9 +35,23 @@ The local development API is `http://localhost:5278`. On a physical Android devi
 
 ## Current UI slice
 
-The app provides a validated login form, an authenticated dashboard placeholder,
-logout, development password-reset request/reset, and a refresh-token-aware
-repository. The dashboard uses placeholders rather than fabricated financial data.
+The app provides a validated login form, a real authenticated dashboard, logout,
+development password-reset request/reset, and a refresh-token-aware repository.
+The dashboard reads GET /reports/dashboard/today and labels metrics as unavailable
+when their backing module is disabled rather than representing unavailable data as
+business zeroes.
+
+## Admin dashboard
+
+Dashboard code is grouped under features/dashboard. It maps the backend dashboard
+DTO into a typed domain entity through a data source and repository. Widgets only
+observe DashboardController state. AuthenticatedApiClient adds the bearer token and
+retries a failed request once after the existing auth controller rotates the refresh
+token. A 403 response remains a permission message, not an empty dashboard.
+
+The dashboard requires the reports.dashboard.view permission and the Reporting
+module. It shows current UTC date/time-zone labels, sales metrics, expenses, and
+low-stock count. Pull down to refresh after changing backend data.
 
 ## Running authentication locally
 

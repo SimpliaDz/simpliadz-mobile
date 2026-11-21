@@ -1,166 +1,239 @@
 import 'package:flutter/material.dart';
+import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/screens/change_password_screen.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/screens/login_screen.dart';
+import 'package:simpliadz_mobile/features/dashboard/domain/entities/dashboard_summary.dart';
+import 'package:simpliadz_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
+import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
+import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
+import 'package:simpliadz_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
+import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
+import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({required this.authController, super.key});
-
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    required this.authController,
+    required this.dashboardController,
+    super.key,
+  });
   final AuthController authController;
+  final DashboardController dashboardController;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final SalesReportsController _salesController;
+  @override
+  void initState() {
+    super.initState();
+    widget.dashboardController.load();
+    _salesController = SalesReportsController(
+      SalesReportsRepositoryImpl(
+        SalesReportsApiDataSource(
+          AuthenticatedApiClient(
+            tokenProvider: widget.authController.accessToken,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => AnimatedBuilder(
+    animation: widget.dashboardController,
+    builder: (context, _) => Scaffold(
       appBar: AppBar(
         title: const Text('SimpliaDz'),
         actions: [
           IconButton(
-            onPressed: () {},
-            tooltip: 'Notifications',
-            icon: const Icon(Icons.notifications_none),
-          ),
-          IconButton(
-            onPressed: () async {
-              await authController.signOut();
-              if (!context.mounted) return;
-              await Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute<void>(
-                  builder: (_) => LoginScreen(authController: authController),
-                ),
-                (route) => false,
-              );
-            },
             tooltip: 'Sign out',
             icon: const Icon(Icons.logout),
-          ),
-          PopupMenuButton<String>(
-            onSelected: (value) async {
-              if (value == 'refresh') {
-                await authController.refreshSession();
-                if (!context.mounted) return;
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      authController.errorMessage ?? 'Session refreshed.',
-                    ),
+            onPressed: () async {
+              await widget.authController.signOut();
+              if (!mounted) return;
+              Navigator.of(this.context).pushAndRemoveUntil(
+                MaterialPageRoute<void>(
+                  builder: (_) => LoginScreen(
+                    authController: widget.authController,
+                    dashboardController: widget.dashboardController,
                   ),
-                );
-              }
-              if (value == 'password') {
-                final signedOut = await Navigator.of(context).push<bool>(
-                  MaterialPageRoute<bool>(
-                    builder: (_) =>
-                        ChangePasswordScreen(authController: authController),
-                  ),
-                );
-                if (signedOut == true && context.mounted) {
-                  await Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute<void>(
-                      builder: (_) =>
-                          LoginScreen(authController: authController),
-                    ),
-                    (route) => false,
-                  );
-                }
-              }
+                ),
+                (_) => false,
+              );
             },
-            itemBuilder: (context) => const [
-              PopupMenuItem(value: 'refresh', child: Text('Refresh session')),
-              PopupMenuItem(value: 'password', child: Text('Change password')),
-            ],
           ),
         ],
       ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            Text(
-              'Signed in as ${authController.currentUser?.email ?? authController.session?.email ?? ''}',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Your business at a glance',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 24),
-            const _MetricCard(
-              label: 'Today\'s sales',
-              value: '—',
-              icon: Icons.payments_outlined,
-            ),
-            const SizedBox(height: 12),
-            const _MetricCard(
-              label: 'Open invoices',
-              value: '—',
-              icon: Icons.receipt_long_outlined,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Quick actions',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            Card(
-              child: ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text('Create an invoice'),
-                subtitle: const Text('Available when invoicing is connected.'),
-                onTap: () {},
-              ),
-            ),
-          ],
-        ),
+      body: RefreshIndicator(
+        onRefresh: widget.dashboardController.load,
+        child: _body(context),
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: 0,
-        destinations: const [
+        onDestinationSelected: (index) {
+          if (index == 1) {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    SalesReportsScreen(controller: _salesController),
+              ),
+            );
+          }
+        },
+        destinations: [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Dashboard',
           ),
           NavigationDestination(
-            icon: Icon(Icons.receipt_outlined),
-            label: 'Invoices',
+            icon: Icon(Icons.bar_chart_outlined),
+            label: 'Reports',
           ),
-          NavigationDestination(icon: Icon(Icons.more_horiz), label: 'More'),
+          NavigationDestination(
+            icon: Icon(Icons.inventory_2_outlined),
+            label: 'Inventory',
+          ),
         ],
       ),
+    ),
+  );
+
+  Widget _body(BuildContext context) {
+    final controller = widget.dashboardController;
+    if (controller.isLoading && controller.summary == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (controller.errorMessage case final error?) {
+      return ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
+          Icon(
+            controller.isForbidden
+                ? Icons.lock_outline
+                : Icons.cloud_off_outlined,
+            size: 48,
+          ),
+          const SizedBox(height: 16),
+          Text(error, textAlign: TextAlign.center),
+          const SizedBox(height: 16),
+          FilledButton(onPressed: controller.load, child: const Text('Retry')),
+        ],
+      );
+    }
+    final summary = controller.summary;
+    if (summary == null) return const SizedBox.shrink();
+    return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      padding: const EdgeInsets.all(20),
+      children: [
+        Text(
+          'Today at a glance',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        Text(
+          '${summary.date.toIso8601String().substring(0, 10)} • ${summary.timeZone}',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 20),
+        _MetricsGrid(summary: summary),
+        const SizedBox(height: 20),
+        Text(
+          'Pull down to refresh. Metric links will open reports as those pages are added.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ],
     );
   }
 }
 
-class _MetricCard extends StatelessWidget {
-  const _MetricCard({
-    required this.label,
-    required this.value,
-    required this.icon,
-  });
-
-  final String label;
-  final String value;
-  final IconData icon;
+class _MetricsGrid extends StatelessWidget {
+  const _MetricsGrid({required this.summary});
+  final DashboardSummary summary;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          children: [
-            CircleAvatar(child: Icon(icon)),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                label,
-                style: Theme.of(context).textTheme.titleMedium,
+    final metrics = [
+      (
+        'Revenue',
+        summary.salesAvailable ? dzd(context, summary.revenue) : 'Unavailable',
+        Icons.payments_outlined,
+      ),
+      (
+        'Gross profit',
+        summary.salesAvailable
+            ? dzd(context, summary.grossProfit)
+            : 'Unavailable',
+        Icons.trending_up_outlined,
+      ),
+      (
+        'Transactions',
+        summary.salesAvailable ? '${summary.transactionCount}' : 'Unavailable',
+        Icons.receipt_long_outlined,
+      ),
+      (
+        'Items sold',
+        summary.salesAvailable ? '${summary.itemsSold}' : 'Unavailable',
+        Icons.shopping_bag_outlined,
+      ),
+      (
+        'Average basket',
+        summary.salesAvailable
+            ? dzd(context, summary.averageBasket)
+            : 'Unavailable',
+        Icons.shopping_cart_outlined,
+      ),
+      (
+        'Expenses',
+        summary.accountingAvailable
+            ? dzd(context, summary.expenses)
+            : 'Unavailable',
+        Icons.account_balance_wallet_outlined,
+      ),
+      (
+        'Low stock',
+        summary.inventoryAvailable ? '${summary.lowStockCount}' : 'Unavailable',
+        Icons.warning_amber_outlined,
+      ),
+    ];
+    return LayoutBuilder(
+      builder: (context, constraints) => GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: metrics.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: constraints.maxWidth >= 600 ? 3 : 2,
+          childAspectRatio: 1.35,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+        ),
+        itemBuilder: (context, index) {
+          final metric = metrics[index];
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(metric.$3, color: Theme.of(context).colorScheme.primary),
+                  const Spacer(),
+                  Text(
+                    metric.$1,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  Text(
+                    metric.$2,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
               ),
             ),
-            Text(value, style: Theme.of(context).textTheme.headlineSmall),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
