@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
 import 'package:simpliadz_mobile/core/barcode/barcode_scanner.dart';
+import 'package:simpliadz_mobile/features/product_lookup/presentation/product_lookup_screen.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -11,6 +12,17 @@ class MoreScreen extends StatelessWidget {
     appBar: AppBar(title: const Text('More')),
     body: ListView(
       children: [
+        ListTile(
+          leading: const Icon(Icons.search),
+          title: const Text('Find product by barcode'),
+          subtitle: const Text('Search manually or scan with the camera'),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) =>
+                  ProductLookupScreen(authController: authController),
+            ),
+          ),
+        ),
         ListTile(
           leading: const Icon(Icons.qr_code_scanner),
           title: const Text('Scan barcode'),
