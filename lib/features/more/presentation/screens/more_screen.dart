@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
+import 'package:simpliadz_mobile/core/barcode/barcode_scanner.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -10,6 +11,20 @@ class MoreScreen extends StatelessWidget {
     appBar: AppBar(title: const Text('More')),
     body: ListView(
       children: [
+        ListTile(
+          leading: const Icon(Icons.qr_code_scanner),
+          title: const Text('Scan barcode'),
+          subtitle: const Text('Test the device camera scanner'),
+          onTap: () async {
+            final result = await BarcodeScanner.scan(context);
+            if (!context.mounted || result == null) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Scanned: ${result.value} (${result.format})'),
+              ),
+            );
+          },
+        ),
         ListTile(
           leading: const Icon(Icons.schedule),
           title: const Text('Worked hours'),
