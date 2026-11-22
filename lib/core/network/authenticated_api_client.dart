@@ -28,6 +28,17 @@ class AuthenticatedApiClient {
     return jsonDecode(response.body);
   }
 
+  Future<dynamic> postDynamic(String path, Object? body) async {
+    var response = await _post(path, body, refresh: false);
+    if (response.statusCode == 401) {
+      response = await _post(path, body, refresh: true);
+    }
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw ApiException(_message(response), statusCode: response.statusCode);
+    }
+    return response.body.isEmpty ? null : jsonDecode(response.body);
+  }
+
   Future<http.Response> _get(String path, {required bool refresh}) async {
     final token = await _tokenProvider(refresh: refresh);
     if (token == null) {
@@ -36,6 +47,25 @@ class AuthenticatedApiClient {
     return _client.get(
       Uri.parse('${AppConfig.apiBaseUrl}$path'),
       headers: {'Authorization': 'Bearer $token'},
+    );
+  }
+
+  Future<http.Response> _post(
+    String path,
+    Object? body, {
+    required bool refresh,
+  }) async {
+    final token = await _tokenProvider(refresh: refresh);
+    if (token == null) {
+      throw const ApiException('Your session has ended.', statusCode: 401);
+    }
+    return _client.post(
+      Uri.parse('${AppConfig.apiBaseUrl}$path'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+      body: body == null ? null : jsonEncode(body),
     );
   }
 

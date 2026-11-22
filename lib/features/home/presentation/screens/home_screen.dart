@@ -13,6 +13,7 @@ import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_
 import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:simpliadz_mobile/features/more/presentation/screens/more_screen.dart';
+import 'package:simpliadz_mobile/features/pos/presentation/screens/pos_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -89,11 +90,19 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (_) =>
-                    SalesReportsScreen(controller: _salesController),
+                    PosScreen(authController: widget.authController),
               ),
             );
           }
           if (index == 2) {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    SalesReportsScreen(controller: _salesController),
+              ),
+            );
+          }
+          if (index == 3) {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (_) => InventoryScreen(
@@ -103,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
-          if (index == 3) {
+          if (index == 4) {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (_) =>
@@ -117,6 +126,11 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
             label: 'Dashboard',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.point_of_sale_outlined),
+            selectedIcon: Icon(Icons.point_of_sale),
+            label: 'POS',
           ),
           NavigationDestination(
             icon: Icon(Icons.bar_chart_outlined),
