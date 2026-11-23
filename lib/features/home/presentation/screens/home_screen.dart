@@ -5,15 +5,12 @@ import 'package:simpliadz_mobile/features/auth/presentation/screens/login_screen
 import 'package:simpliadz_mobile/features/dashboard/domain/entities/dashboard_summary.dart';
 import 'package:simpliadz_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
 import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
-import 'package:simpliadz_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
 import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:simpliadz_mobile/features/more/presentation/screens/more_screen.dart';
 import 'package:simpliadz_mobile/features/pos/presentation/screens/pos_screen.dart';
+import 'package:simpliadz_mobile/features/workforce/presentation/screens/workforce_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -29,21 +26,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final SalesReportsController _salesController;
   late final InventoryController _inventoryController;
   @override
   void initState() {
     super.initState();
     widget.dashboardController.load();
-    _salesController = SalesReportsController(
-      SalesReportsRepositoryImpl(
-        SalesReportsApiDataSource(
-          AuthenticatedApiClient(
-            tokenProvider: widget.authController.accessToken,
-          ),
-        ),
-      ),
-    );
     _inventoryController = InventoryController(
       InventoryApiDataSource(
         AuthenticatedApiClient(
@@ -97,18 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
           if (index == 2) {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) =>
-                    SalesReportsScreen(controller: _salesController),
+                builder: (_) => InventoryScreen(
+                  controller: _inventoryController,
+                  authController: widget.authController,
+                ),
               ),
             );
           }
           if (index == 3) {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) => InventoryScreen(
-                  controller: _inventoryController,
-                  authController: widget.authController,
-                ),
+                builder: (_) =>
+                    WorkforceScreen(authController: widget.authController),
               ),
             );
           }
@@ -133,12 +120,12 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'POS',
           ),
           NavigationDestination(
-            icon: Icon(Icons.bar_chart_outlined),
-            label: 'Reports',
-          ),
-          NavigationDestination(
             icon: Icon(Icons.inventory_2_outlined),
             label: 'Inventory',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.badge_outlined),
+            label: 'Workforce',
           ),
           NavigationDestination(icon: Icon(Icons.more_horiz), label: 'More'),
         ],
