@@ -3,6 +3,7 @@ import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
 import 'package:simpliadz_mobile/core/barcode/barcode_scanner.dart';
 import 'package:simpliadz_mobile/features/product_lookup/presentation/product_lookup_screen.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simpliadz_mobile/features/audit/presentation/screens/audit_log_screen.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({required this.authController, super.key});
@@ -56,11 +57,7 @@ class MoreScreen extends StatelessWidget {
           title: const Text('Audit history'),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(
-              builder: (_) => _DataScreen(
-                authController: authController,
-                title: 'Audit history',
-                path: '/audit/entries?page=1&pageSize=50',
-              ),
+              builder: (_) => AuditLogScreen(authController: authController),
             ),
           ),
         ),
