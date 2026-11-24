@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/core/barcode/barcode_scanner.dart';
 import 'package:simpliadz_mobile/features/product_lookup/presentation/product_lookup_screen.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:simpliadz_mobile/features/audit/presentation/screens/audit_log_screen.dart';
+import 'package:simpliadz_mobile/features/accounting/presentation/screens/expenses_screen.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_counts_screen.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/screens/warnings_screen.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({required this.authController, super.key});
@@ -12,7 +14,42 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text('More')),
     body: ListView(
+      padding: const EdgeInsets.all(16),
       children: [
+        Text('Oversight tools', style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 8),
+        ListTile(
+          leading: const Icon(Icons.receipt_long_outlined),
+          title: const Text('Expenses'),
+          subtitle: const Text('Review recent accounting expenses'),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => ExpensesScreen(authController: authController),
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.fact_check_outlined),
+          title: const Text('Inventory counts'),
+          subtitle: const Text('Review count progress and variances'),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) =>
+                  InventoryCountsScreen(authController: authController),
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.warning_amber_outlined),
+          title: const Text('Inventory warnings'),
+          subtitle: const Text('Low stock and ageing items'),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => WarningsScreen(authController: authController),
+            ),
+          ),
+        ),
+        const Divider(),
         ListTile(
           leading: const Icon(Icons.search),
           title: const Text('Find product by barcode'),
@@ -23,20 +60,6 @@ class MoreScreen extends StatelessWidget {
                   ProductLookupScreen(authController: authController),
             ),
           ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.qr_code_scanner),
-          title: const Text('Scan barcode'),
-          subtitle: const Text('Test the device camera scanner'),
-          onTap: () async {
-            final result = await BarcodeScanner.scan(context);
-            if (!context.mounted || result == null) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Scanned: ${result.value} (${result.format})'),
-              ),
-            );
-          },
         ),
         ListTile(
           leading: const Icon(Icons.schedule),

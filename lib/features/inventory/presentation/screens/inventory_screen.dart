@@ -3,6 +3,7 @@ import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/stock_detail_screen.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/warnings_screen.dart';
+import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_counts_screen.dart';
 import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class InventoryScreen extends StatefulWidget {
@@ -34,6 +35,17 @@ class _InventoryScreenState extends State<InventoryScreen> {
         appBar: AppBar(
           title: const Text('Inventory'),
           actions: [
+            IconButton(
+              icon: const Icon(Icons.fact_check_outlined),
+              tooltip: 'Inventory counts',
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => InventoryCountsScreen(
+                    authController: widget.authController,
+                  ),
+                ),
+              ),
+            ),
             IconButton(
               icon: const Icon(Icons.warning_amber_outlined),
               tooltip: 'Warnings',

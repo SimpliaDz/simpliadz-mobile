@@ -9,8 +9,10 @@ import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_
 import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
 import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:simpliadz_mobile/features/more/presentation/screens/more_screen.dart';
-import 'package:simpliadz_mobile/features/pos/presentation/screens/pos_screen.dart';
-import 'package:simpliadz_mobile/features/workforce/presentation/screens/workforce_screen.dart';
+import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
+import 'package:simpliadz_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
+import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
+import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -27,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final InventoryController _inventoryController;
+  late final SalesReportsController _reportsController;
   @override
   void initState() {
     super.initState();
@@ -35,6 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
       InventoryApiDataSource(
         AuthenticatedApiClient(
           tokenProvider: widget.authController.accessToken,
+        ),
+      ),
+    );
+    _reportsController = SalesReportsController(
+      SalesReportsRepositoryImpl(
+        SalesReportsApiDataSource(
+          AuthenticatedApiClient(
+            tokenProvider: widget.authController.accessToken,
+          ),
         ),
       ),
     );
@@ -77,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (_) =>
-                    PosScreen(authController: widget.authController),
+                    SalesReportsScreen(controller: _reportsController),
               ),
             );
           }
@@ -95,14 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (_) =>
-                    WorkforceScreen(authController: widget.authController),
-              ),
-            );
-          }
-          if (index == 4) {
-            Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) =>
                     MoreScreen(authController: widget.authController),
               ),
             );
@@ -115,19 +119,19 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Dashboard',
           ),
           NavigationDestination(
-            icon: Icon(Icons.point_of_sale_outlined),
-            selectedIcon: Icon(Icons.point_of_sale),
-            label: 'POS',
+            icon: Icon(Icons.insights_outlined),
+            selectedIcon: Icon(Icons.insights),
+            label: 'Reports',
           ),
           NavigationDestination(
             icon: Icon(Icons.inventory_2_outlined),
             label: 'Inventory',
           ),
           NavigationDestination(
-            icon: Icon(Icons.badge_outlined),
-            label: 'Workforce',
+            icon: Icon(Icons.grid_view_outlined),
+            selectedIcon: Icon(Icons.grid_view),
+            label: 'More',
           ),
-          NavigationDestination(icon: Icon(Icons.more_horiz), label: 'More'),
         ],
       ),
     ),
@@ -159,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (summary == null) return const SizedBox.shrink();
     return ListView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
       children: [
         Text(
           'Today at a glance',
@@ -173,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _MetricsGrid(summary: summary),
         const SizedBox(height: 20),
         Text(
-          'Pull down to refresh. Metric links will open reports as those pages are added.',
+          'Pull down to refresh. Use Reports and Inventory for detailed checks.',
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ],
