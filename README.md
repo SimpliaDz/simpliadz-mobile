@@ -1,4 +1,8 @@
-# simpliadz_mobile
+# SimpliaDz Mobile
+
+The Flutter companion application for reporting, inventory checks, counts and accounting review. It consumes the same SimpliaDz API as the web app; business rules remain on the backend.
+
+See [documentation/DEPLOYMENT.md](documentation/DEPLOYMENT.md) for native Android release delivery and [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) for the feature architecture.
 
 A new Flutter project.
 
