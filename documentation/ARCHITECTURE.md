@@ -1,8 +1,8 @@
-# SimpliaDz Mobile Architecture
+# Simplia Mobile Architecture
 
 ## Scope
 
-SimpliaDz Mobile is a Flutter client for the SimpliaDz API. The application follows a pragmatic, feature-first Clean Architecture: code is grouped by business capability and layers are introduced only when they carry a real responsibility.
+Simplia Mobile is a Flutter client for the Simplia API. The application follows a pragmatic, feature-first Clean Architecture: code is grouped by business capability and layers are introduced only when they carry a real responsibility.
 
 ## Layout
 
@@ -68,8 +68,18 @@ The development account and password are documented in the API project's
 src/SimpliaDz.Api/SimpliaDz.Api.http file; enter them manually. They are not
 embedded in the mobile app.
 
-## Next implementation sequence
+## Reporting navigation
 
-1. Add route guards and restore the stored session during application startup.
-2. Centralize authenticated request retry after access-token expiry.
-3. Replace dashboard placeholders with authenticated API-backed features.
+The mobile client focuses on oversight. Reports groups the financial dashboard,
+sales and product performance, expenses, and worked hours. More provides inventory
+counts, inventory warnings, barcode lookup, and audit history. Entries follow API
+permissions. The API remains responsible for authorizing and calculating results.
+
+The financial dashboard calls GET /reports/financial-dashboard with the selected
+date range and optional location ID. It displays operating metrics, recent active
+days, payment mix, shop comparison, and top products. Users with locations.view
+can select shops without sales in the current range. Worked hours uses
+GET /reports/work-hours and shows organization-wide hours grouped by day.
+
+The shared theme in lib/app/app_theme.dart uses the web app's blue Material 3
+direction and follows the device's light or dark appearance.

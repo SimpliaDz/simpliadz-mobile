@@ -5,7 +5,7 @@ void main() {
   testWidgets('displays the authentication entry screen', (tester) async {
     await tester.pumpWidget(const SimpliaDzApp());
 
-    expect(find.text('SimpliaDz'), findsOneWidget);
+    expect(find.text('Simplia'), findsOneWidget);
     expect(find.text('Sign in to your business'), findsOneWidget);
     expect(find.text('Sign in'), findsOneWidget);
   });

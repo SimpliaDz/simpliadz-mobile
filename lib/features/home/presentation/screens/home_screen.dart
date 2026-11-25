@@ -12,7 +12,6 @@ import 'package:simpliadz_mobile/features/more/presentation/screens/more_screen.
 import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
 import 'package:simpliadz_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
 import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -57,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     animation: widget.dashboardController,
     builder: (context, _) => Scaffold(
       appBar: AppBar(
-        title: const Text('SimpliaDz'),
+        title: const Text('Simplia'),
         actions: [
           IconButton(
             tooltip: 'Sign out',
@@ -88,8 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
           if (index == 1) {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) =>
-                    SalesReportsScreen(controller: _reportsController),
+                builder: (_) => MoreScreen(
+                  authController: widget.authController,
+                  salesReportsController: _reportsController,
+                ),
               ),
             );
           }
@@ -175,11 +176,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 20),
         _MetricsGrid(summary: summary),
-        const SizedBox(height: 20),
-        Text(
-          'Pull down to refresh. Use Reports and Inventory for detailed checks.',
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
       ],
     );
   }
@@ -235,41 +231,42 @@ class _MetricsGrid extends StatelessWidget {
       ),
     ];
     return LayoutBuilder(
-      builder: (context, constraints) => GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: metrics.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: constraints.maxWidth >= 600 ? 3 : 2,
-          childAspectRatio: 1.35,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-        ),
-        itemBuilder: (context, index) {
-          final metric = metrics[index];
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(14),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(metric.$3, color: Theme.of(context).colorScheme.primary),
-                  const Spacer(),
-                  Text(
-                    metric.$1,
-                    style: Theme.of(context).textTheme.labelLarge,
+      builder: (context, constraints) => Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: [
+          for (final metric in metrics)
+            SizedBox(
+              width: constraints.maxWidth < 310
+                  ? constraints.maxWidth
+                  : (constraints.maxWidth -
+                            (constraints.maxWidth >= 600 ? 24 : 12)) /
+                        (constraints.maxWidth >= 600 ? 3 : 2),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        metric.$3,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        metric.$1,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      Text(
+                        metric.$2,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ],
                   ),
-                  Text(
-                    metric.$2,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
+                ),
               ),
             ),
-          );
-        },
+        ],
       ),
     );
   }

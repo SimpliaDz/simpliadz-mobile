@@ -1,21 +1,26 @@
-# SimpliaDz Mobile
+# Simplia Mobile
 
-The Flutter companion application for reporting, inventory checks, counts and accounting review. It consumes the same SimpliaDz API as the web app; business rules remain on the backend.
+The Flutter companion to Simplia Web provides reporting, inventory checks, and accounting review. It uses the same backend API as the web app.
 
-See [documentation/DEPLOYMENT.md](documentation/DEPLOYMENT.md) for native Android release delivery and [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) for the feature architecture.
+## Run locally
 
-A new Flutter project.
+Install Flutter and the Android SDK, then configure the shared development runner and start the API. From the runner directory, launch the app with the script for your device.
 
-## Getting Started
+```powershell
+.\scripts\run-mobile-emulator.ps1
+.\scripts\run-mobile-phone.ps1
+```
 
-This project is a starting point for a Flutter application.
+The runner supplies the API URL. The phone script uses the configured development PC address, which the phone must be able to reach.
 
-A few resources to get you started if this is your first Flutter project:
+## Verify changes
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+From this repository, run:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```powershell
+flutter analyze
+flutter test
+flutter build apk --debug
+```
+
+Android displays **Simplia** and retains the existing application ID so signed updates can use the same installation. See the [architecture guide](documentation/ARCHITECTURE.md) for feature structure and the [deployment guide](documentation/DEPLOYMENT.md) for Android release builds.
