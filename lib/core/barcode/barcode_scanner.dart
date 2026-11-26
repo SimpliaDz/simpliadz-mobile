@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/barcode/barcode_scan_result.dart';
-import 'package:simpliadz_mobile/core/barcode/presentation/barcode_scanner_screen.dart';
+import 'package:simplia_mobile/core/barcode/barcode_scan_result.dart';
+import 'package:simplia_mobile/core/barcode/presentation/barcode_scanner_screen.dart';
 
 class BarcodeScanner {
   const BarcodeScanner._();

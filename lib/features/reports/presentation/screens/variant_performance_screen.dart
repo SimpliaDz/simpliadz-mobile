@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
-import 'package:simpliadz_mobile/features/reports/domain/repositories/sales_reports_repository.dart';
+import 'package:simplia_mobile/core/formatters/money_formatter.dart';
+import 'package:simplia_mobile/features/reports/domain/repositories/sales_reports_repository.dart';
 
 class VariantPerformanceScreen extends StatefulWidget {
   const VariantPerformanceScreen({

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/barcode/barcode_scanner.dart';
-import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
-import 'package:simpliadz_mobile/core/network/api_exception.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:simpliadz_mobile/features/pos/data/pos_api.dart';
+import 'package:simplia_mobile/core/barcode/barcode_scanner.dart';
+import 'package:simplia_mobile/core/formatters/money_formatter.dart';
+import 'package:simplia_mobile/core/network/api_exception.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/features/pos/data/pos_api.dart';
 
 class PosScreen extends StatefulWidget {
   const PosScreen({required this.authController, super.key});

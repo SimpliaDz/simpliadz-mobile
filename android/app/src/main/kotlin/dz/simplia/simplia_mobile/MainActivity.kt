@@ -1,4 +1,4 @@
-package dz.simplia.simpliadz_mobile
+package dz.simplia.simplia_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

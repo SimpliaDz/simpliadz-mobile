@@ -1,8 +1,8 @@
-# Simplia Mobile Architecture
+# SimpliaWear Mobile Architecture
 
 ## Scope
 
-Simplia Mobile is a Flutter client for the Simplia API. The application follows a pragmatic, feature-first Clean Architecture: code is grouped by business capability and layers are introduced only when they carry a real responsibility.
+SimpliaWear Mobile is a Flutter client for the SimpliaWear API. The application follows a pragmatic, feature-first Clean Architecture: code is grouped by business capability and layers are introduced only when they carry a real responsibility.
 
 ## Layout
 
@@ -65,7 +65,7 @@ The debug-only Android manifest permits cleartext HTTP so the local API can be
 used in development. Release builds must use HTTPS.
 
 The development account and password are documented in the API project's
-src/SimpliaDz.Api/SimpliaDz.Api.http file; enter them manually. They are not
+src/SimpliaWear.Api/SimpliaWear.Api.http file; enter them manually. They are not
 embedded in the mobile app.
 
 ## Reporting navigation

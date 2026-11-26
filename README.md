@@ -1,6 +1,6 @@
-# Simplia Mobile
+# SimpliaWear Mobile
 
-The Flutter companion to Simplia Web provides reporting, inventory checks, and accounting review. It uses the same backend API as the web app.
+The Flutter companion to SimpliaWear Web provides reporting, inventory checks, and accounting review. It uses the same backend API as the web app.
 
 ## Run locally
 
@@ -23,4 +23,4 @@ flutter test
 flutter build apk --debug
 ```
 
-Android displays **Simplia** and retains the existing application ID so signed updates can use the same installation. See the [architecture guide](documentation/ARCHITECTURE.md) for feature structure and the [deployment guide](documentation/DEPLOYMENT.md) for Android release builds.
+Android displays **SimpliaWear** and retains the existing application ID so signed updates can use the same installation. See the [architecture guide](documentation/ARCHITECTURE.md) for feature structure and the [deployment guide](documentation/DEPLOYMENT.md) for Android release builds.

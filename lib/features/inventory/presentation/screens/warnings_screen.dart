@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class WarningsScreen extends StatefulWidget {
   const WarningsScreen({required this.authController, super.key});

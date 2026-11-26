@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
-import 'package:simpliadz_mobile/features/inventory/domain/entities/inventory_report.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/stock_movements_screen.dart';
+import 'package:simplia_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
+import 'package:simplia_mobile/features/inventory/domain/entities/inventory_report.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/stock_movements_screen.dart';
 
 class StockDetailScreen extends StatefulWidget {
   const StockDetailScreen({required this.api, required this.row, super.key});

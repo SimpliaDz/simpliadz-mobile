@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/accounting/presentation/screens/expenses_screen.dart';
-import 'package:simpliadz_mobile/features/audit/presentation/screens/audit_log_screen.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_counts_screen.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/warnings_screen.dart';
-import 'package:simpliadz_mobile/features/product_lookup/presentation/product_lookup_screen.dart';
-import 'package:simpliadz_mobile/features/reports/data/data_sources/financial_report_api.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/screens/financial_report_screen.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
-import 'package:simpliadz_mobile/features/workforce/presentation/screens/work_hours_report_screen.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/accounting/presentation/screens/expenses_screen.dart';
+import 'package:simplia_mobile/features/audit/presentation/screens/audit_log_screen.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/inventory_counts_screen.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/warnings_screen.dart';
+import 'package:simplia_mobile/features/product_lookup/presentation/product_lookup_screen.dart';
+import 'package:simplia_mobile/features/reports/data/data_sources/financial_report_api.dart';
+import 'package:simplia_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
+import 'package:simplia_mobile/features/reports/presentation/screens/financial_report_screen.dart';
+import 'package:simplia_mobile/features/reports/presentation/screens/sales_reports_screen.dart';
+import 'package:simplia_mobile/features/workforce/presentation/screens/work_hours_report_screen.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({

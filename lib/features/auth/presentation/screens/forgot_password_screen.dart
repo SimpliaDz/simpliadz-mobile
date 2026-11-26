@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/screens/reset_password_screen.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/features/auth/presentation/screens/reset_password_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({required this.authController, super.key});

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:simpliadz_mobile/core/config/app_config.dart';
-import 'package:simpliadz_mobile/core/network/api_exception.dart';
+import 'package:simplia_mobile/core/config/app_config.dart';
+import 'package:simplia_mobile/core/network/api_exception.dart';
 
 typedef AccessTokenProvider = Future<String?> Function({bool refresh});
 

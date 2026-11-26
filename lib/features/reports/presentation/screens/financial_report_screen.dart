@@ -1,10 +1,10 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/network/api_exception.dart';
-import 'package:simpliadz_mobile/core/widgets/report_scaffold.dart';
-import 'package:simpliadz_mobile/features/reports/data/data_sources/financial_report_api.dart';
-import 'package:simpliadz_mobile/features/reports/domain/entities/financial_report.dart';
+import 'package:simplia_mobile/core/network/api_exception.dart';
+import 'package:simplia_mobile/core/widgets/report_scaffold.dart';
+import 'package:simplia_mobile/features/reports/data/data_sources/financial_report_api.dart';
+import 'package:simplia_mobile/features/reports/domain/entities/financial_report.dart';
 
 class FinancialReportScreen extends StatefulWidget {
   const FinancialReportScreen({

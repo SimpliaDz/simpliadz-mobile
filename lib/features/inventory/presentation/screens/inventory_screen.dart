@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/stock_detail_screen.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/warnings_screen.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_counts_screen.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/core/formatters/money_formatter.dart';
+import 'package:simplia_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/stock_detail_screen.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/warnings_screen.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/inventory_counts_screen.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
-import 'package:simpliadz_mobile/features/inventory/domain/entities/inventory_report.dart';
+import 'package:simplia_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
+import 'package:simplia_mobile/features/inventory/domain/entities/inventory_report.dart';
 
 class InventoryController extends ChangeNotifier {
   InventoryController(this._api);

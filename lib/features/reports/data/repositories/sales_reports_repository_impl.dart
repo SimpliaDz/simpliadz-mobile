@@ -1,6 +1,6 @@
-import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
-import 'package:simpliadz_mobile/features/reports/domain/entities/sales_reports.dart';
-import 'package:simpliadz_mobile/features/reports/domain/repositories/sales_reports_repository.dart';
+import 'package:simplia_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
+import 'package:simplia_mobile/features/reports/domain/entities/sales_reports.dart';
+import 'package:simplia_mobile/features/reports/domain/repositories/sales_reports_repository.dart';
 
 class SalesReportsRepositoryImpl implements SalesReportsRepository {
   const SalesReportsRepositoryImpl(this._source);

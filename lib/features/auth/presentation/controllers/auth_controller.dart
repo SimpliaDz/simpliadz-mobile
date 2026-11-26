@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:simpliadz_mobile/features/auth/domain/entities/auth_session.dart';
-import 'package:simpliadz_mobile/features/auth/domain/entities/current_user.dart';
-import 'package:simpliadz_mobile/features/auth/domain/repositories/auth_repository.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/auth_session.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/current_user.dart';
+import 'package:simplia_mobile/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthController extends ChangeNotifier {
   AuthController(this._repository);

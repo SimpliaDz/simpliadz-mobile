@@ -1,9 +1,9 @@
-import 'package:simpliadz_mobile/core/network/api_exception.dart';
-import 'package:simpliadz_mobile/features/auth/data/data_sources/auth_api_data_source.dart';
-import 'package:simpliadz_mobile/features/auth/data/storage/refresh_token_store.dart';
-import 'package:simpliadz_mobile/features/auth/domain/entities/auth_session.dart';
-import 'package:simpliadz_mobile/features/auth/domain/entities/current_user.dart';
-import 'package:simpliadz_mobile/features/auth/domain/repositories/auth_repository.dart';
+import 'package:simplia_mobile/core/network/api_exception.dart';
+import 'package:simplia_mobile/features/auth/data/data_sources/auth_api_data_source.dart';
+import 'package:simplia_mobile/features/auth/data/storage/refresh_token_store.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/auth_session.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/current_user.dart';
+import 'package:simplia_mobile/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._api, this._tokenStore);

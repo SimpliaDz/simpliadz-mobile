@@ -1,5 +1,5 @@
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/reports/domain/entities/financial_report.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/reports/domain/entities/financial_report.dart';
 
 class FinancialReportApi {
   const FinancialReportApi(this._client);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/core/formatters/money_formatter.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 /// Mobile accounting is intentionally read-only: it supports review, not posting expenses.
 class ExpensesScreen extends StatefulWidget {

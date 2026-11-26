@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
+import 'package:simplia_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
 
 class StockMovementsScreen extends StatefulWidget {
   const StockMovementsScreen({

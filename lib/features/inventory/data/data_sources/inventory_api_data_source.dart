@@ -1,5 +1,5 @@
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/inventory/domain/entities/inventory_report.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/inventory/domain/entities/inventory_report.dart';
 
 class InventoryApiDataSource {
   const InventoryApiDataSource(this._client);

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:simpliadz_mobile/features/auth/data/models/auth_session_model.dart';
+import 'package:simplia_mobile/features/auth/data/models/auth_session_model.dart';
 
 void main() {
   test('maps the API login response to an authentication session', () {

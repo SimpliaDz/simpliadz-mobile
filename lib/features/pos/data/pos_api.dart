@@ -1,4 +1,4 @@
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
 
 class PosApi {
   const PosApi(this._client);

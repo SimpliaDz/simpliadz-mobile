@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/network/api_exception.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/core/widgets/report_scaffold.dart';
+import 'package:simplia_mobile/core/network/api_exception.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/core/widgets/report_scaffold.dart';
 
 class WorkHoursReportScreen extends StatefulWidget {
   const WorkHoursReportScreen({required this.client, super.key});

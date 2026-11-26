@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/screens/forgot_password_screen.dart';
-import 'package:simpliadz_mobile/features/home/presentation/screens/home_screen.dart';
-import 'package:simpliadz_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/features/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:simplia_mobile/features/home/presentation/screens/home_screen.dart';
+import 'package:simplia_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'Simplia',
+                        'SimpliaWear',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),

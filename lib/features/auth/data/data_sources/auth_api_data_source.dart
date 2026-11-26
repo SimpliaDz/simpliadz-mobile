@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:simpliadz_mobile/core/config/app_config.dart';
-import 'package:simpliadz_mobile/core/network/api_exception.dart';
-import 'package:simpliadz_mobile/features/auth/data/models/auth_session_model.dart';
-import 'package:simpliadz_mobile/features/auth/domain/entities/current_user.dart';
+import 'package:simplia_mobile/core/config/app_config.dart';
+import 'package:simplia_mobile/core/network/api_exception.dart';
+import 'package:simplia_mobile/features/auth/data/models/auth_session_model.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/current_user.dart';
 
 class AuthApiDataSource {
   AuthApiDataSource({http.Client? client, String? baseUrl})

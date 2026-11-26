@@ -1,4 +1,4 @@
-import 'package:simpliadz_mobile/features/auth/domain/entities/auth_session.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/auth_session.dart';
 
 class AuthSessionModel {
   const AuthSessionModel({

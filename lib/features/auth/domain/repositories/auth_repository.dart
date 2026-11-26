@@ -1,5 +1,5 @@
-import 'package:simpliadz_mobile/features/auth/domain/entities/auth_session.dart';
-import 'package:simpliadz_mobile/features/auth/domain/entities/current_user.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/auth_session.dart';
+import 'package:simplia_mobile/features/auth/domain/entities/current_user.dart';
 
 abstract interface class AuthRepository {
   Future<AuthSession> signIn({required String email, required String password});

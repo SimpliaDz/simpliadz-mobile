@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({required this.authController, super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:simpliadz_mobile/core/barcode/barcode_scan_result.dart';
+import 'package:simplia_mobile/core/barcode/barcode_scan_result.dart';
 
 class BarcodeScannerScreen extends StatefulWidget {
   const BarcodeScannerScreen({super.key});

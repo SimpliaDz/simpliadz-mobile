@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:simpliadz_mobile/app/app_theme.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/reports/data/data_sources/financial_report_api.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/screens/financial_report_screen.dart';
+import 'package:simplia_mobile/app/app_theme.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/reports/data/data_sources/financial_report_api.dart';
+import 'package:simplia_mobile/features/reports/presentation/screens/financial_report_screen.dart';
 
 void main() {
   testWidgets('selecting a shop requests its figures on a narrow dark screen', (

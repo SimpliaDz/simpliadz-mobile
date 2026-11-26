@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/screens/variant_performance_screen.dart';
+import 'package:simplia_mobile/core/formatters/money_formatter.dart';
+import 'package:simplia_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
+import 'package:simplia_mobile/features/reports/presentation/screens/variant_performance_screen.dart';
 
 class SalesReportsScreen extends StatefulWidget {
   const SalesReportsScreen({required this.controller, super.key});

@@ -1,4 +1,4 @@
-import 'package:simpliadz_mobile/features/reports/domain/entities/sales_reports.dart';
+import 'package:simplia_mobile/features/reports/domain/entities/sales_reports.dart';
 
 abstract interface class SalesReportsRepository {
   Future<SalesSummary> summary(DateTime from, DateTime to);

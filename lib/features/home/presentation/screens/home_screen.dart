@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:simpliadz_mobile/core/formatters/money_formatter.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:simpliadz_mobile/features/auth/presentation/screens/login_screen.dart';
-import 'package:simpliadz_mobile/features/dashboard/domain/entities/dashboard_summary.dart';
-import 'package:simpliadz_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
-import 'package:simpliadz_mobile/core/network/authenticated_api_client.dart';
-import 'package:simpliadz_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
-import 'package:simpliadz_mobile/features/inventory/presentation/screens/inventory_screen.dart';
-import 'package:simpliadz_mobile/features/more/presentation/screens/more_screen.dart';
-import 'package:simpliadz_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
-import 'package:simpliadz_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
-import 'package:simpliadz_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
+import 'package:simplia_mobile/core/formatters/money_formatter.dart';
+import 'package:simplia_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:simplia_mobile/features/auth/presentation/screens/login_screen.dart';
+import 'package:simplia_mobile/features/dashboard/domain/entities/dashboard_summary.dart';
+import 'package:simplia_mobile/features/dashboard/presentation/controllers/dashboard_controller.dart';
+import 'package:simplia_mobile/core/network/authenticated_api_client.dart';
+import 'package:simplia_mobile/features/inventory/data/data_sources/inventory_api_data_source.dart';
+import 'package:simplia_mobile/features/inventory/presentation/controllers/inventory_controller.dart';
+import 'package:simplia_mobile/features/inventory/presentation/screens/inventory_screen.dart';
+import 'package:simplia_mobile/features/more/presentation/screens/more_screen.dart';
+import 'package:simplia_mobile/features/reports/data/data_sources/sales_reports_api_data_source.dart';
+import 'package:simplia_mobile/features/reports/data/repositories/sales_reports_repository_impl.dart';
+import 'package:simplia_mobile/features/reports/presentation/controllers/sales_reports_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     animation: widget.dashboardController,
     builder: (context, _) => Scaffold(
       appBar: AppBar(
-        title: const Text('Simplia'),
+        title: const Text('SimpliaWear'),
         actions: [
           IconButton(
             tooltip: 'Sign out',
